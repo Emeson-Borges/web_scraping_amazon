@@ -30,21 +30,23 @@ with open(filename, 'w', newline='') as csv_file:
     # Loop pelos itens da lista de resultados de pesquisa
     for item in items:
         # Obtém o nome do livro
-        name_tag = item.find('span', {'class': 'a-size-base-plus a-color-base a-text-normal'})
+        name_tag = item.find('span', {'class': 'a-size-medium a-color-base a-text-normal'})
         if name_tag:
             name = name_tag.text.strip()
         else:
-            name = 'N/A'
+            name = 'Não Encontrado'
 
         # Obtém o preço do livro
         price_tag = item.find('span', {'class': 'a-offscreen'})
         if price_tag:
-            price = price_tag.text.strip().replace(',', '.')  # substitui vírgula por ponto para o formato correto do CSV
+            # substitui vírgula por ponto para o formato correto do CSV
+            price = price_tag.text.strip().replace(',', '.')
         else:
             price = 'N/A'
 
         # Escreve os dados no arquivo CSV
         writer.writerow([name, price, date_now])
 
-        print('Nome:', name)
-        print('Preço:', price)
+print('Nome:', name)
+print('Preço:', price)
+print('Data de verificação:', date_now)
